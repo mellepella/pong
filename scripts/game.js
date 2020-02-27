@@ -3,6 +3,8 @@ const canvas = {
 	'width': 100
 }
 
+let backgroundColor = "#d4d4d4";
+
 const animationTime = 1;
 
 const unitSize = 50;
@@ -10,7 +12,10 @@ const unitSize = 50;
 const playerOne = new Player(unitSize * 18, unitSize * 3);
 const playerTwo = new Player(unitSize * 1, unitSize * 3);
 
-const ball = new Ball(unitSize * 9, unitSize * 1);
+const ball = new Ball(unitSize * 10, unitSize * 5);
+
+let playerOneScore = 0;
+let playerTwoScore = 0;
 
 const keyPresses = {
 	'w': 119,
@@ -28,9 +33,12 @@ class Game {
 		playerTwo.update();
 
 		ball.update();
+
+		UserInterface.displayText(unitSize * 16, unitSize * 2, playerOneScore, '50', 'Verdana');
+		UserInterface.displayText(unitSize * 3, unitSize * 2, playerTwoScore, '50', 'Verdana');
 	}
 	static clearCanvas() {
-		ctx.fillStyle = 'green';
+		ctx.fillStyle = backgroundColor;
 		ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 	}
 	static detectKeypress(event) {
@@ -47,8 +55,28 @@ class Game {
 			playerOne.goDown();
 		}
 	}
-}
+	static increaseScore(player) {
+		if(player === 1) {
+			playerOneScore += 1;
+		}
+		else {
+			playerTwoScore += 1;
+		}
+	}
+	static restart() {
+		playerOne.height = unitSize * 4;
+		playerTwo.height = unitSize * 4;
 
+		playerOne.y = playerOne.starterY;
+		playerTwo.y = playerTwo.starterY;
+
+		ball.x = ball.starterX;
+		ball.y = ball.starterY;
+
+		ball.velocityX = ball.velocity;
+		ball.velocityY = ball.velocity;
+	}
+}
 
 setInterval(function() {
 	Game.update();

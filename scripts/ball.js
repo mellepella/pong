@@ -1,5 +1,8 @@
 class Ball {
 	constructor(x, y) {
+		this.starterX = x;
+		this.starterY = y;
+	
 		this.x = x;
 		this.y = y;
 
@@ -10,7 +13,7 @@ class Ball {
 		this.velocity = 5;
 
 		this.velocityX = this.velocity;
-		this.velocityY = this.velocity;
+		this.velocityY = -this.velocity;
 	}
 	update() {
 		this.draw();
@@ -26,8 +29,13 @@ class Ball {
 		this.y += this.velocityY;
 	}
 	checkPosition() {
-		if(this.x + this.size > 1000 || this.x < 0) {
-			this.changeDirection('x');
+		if(this.x + this.size > 1000) {
+			Game.increaseScore(2);
+			Game.restart();
+		}
+		else if(this.x < 0) {
+			Game.increaseScore(1);
+			Game.restart();
 		}
 		else if(this.y + this.size >= canvas.height || this.y <= 0) {
 			this.changeDirection('y');
@@ -45,9 +53,21 @@ class Ball {
 	checkCollision() {
 		if(this.x < playerTwo.x + playerTwo.width && this.y + this.size > playerTwo.y && this.y < playerTwo.y + playerTwo.height) {
 			this.changeDirection('x');
+			if(playerOne.height > unitSize * 3) {
+				playerOne.height -= 5;
+				playerTwo.height -= 5;
+			}
+			ball.velocityX += ball.velocityX/10;
+			ball.velocityY += ball.velocityY/10;
 		}
 		else if(this.x + this.size > playerOne.x && this.y + this.size > playerOne.y && this.y < playerOne.y + playerOne.height) {
 			this.changeDirection('x');
+			if(playerOne.height > unitSize * 3) {
+				playerOne.height -= 5;
+				playerTwo.height -= 5;
+			}
+			ball.velocityX += ball.velocityX/10;
+			ball.velocityY += ball.velocityY/10;
 		}		
 	}
 }

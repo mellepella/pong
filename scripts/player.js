@@ -1,5 +1,8 @@
 class Player {
 	constructor(x, y) {
+		this.starterX = x;
+		this.starterY = y;
+
 		this.x = x;
 		this.y = y;
 
