@@ -11,7 +11,7 @@ class Player {
 		this.width = unitSize;
 		this.height = this.width * 4;		
 
-		this.velocity = unitSize/2;
+		this.velocity = unitSize;
 
 		this.isColliding = false;
 	}

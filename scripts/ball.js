@@ -10,7 +10,7 @@ class Ball {
 
 		this.size = unitSize;
 
-		this.velocity = 5;
+		this.velocity = 1;
 
 		this.velocityX = this.velocity;
 		this.velocityY = -this.velocity;
@@ -51,23 +51,31 @@ class Ball {
 		}
 	}
 	checkCollision() {
-		if(this.x < playerTwo.x + playerTwo.width && this.y + this.size > playerTwo.y && this.y < playerTwo.y + playerTwo.height) {
+		if(this.x < playerTwo.x + playerTwo.width && this.y + this.size > playerTwo.y &&
+		this.y < playerTwo.y + playerTwo.height) {
 			this.changeDirection('x');
+			this.x += this.velocity * 2;
 			if(playerOne.height > unitSize * 3) {
 				playerOne.height -= 5;
 				playerTwo.height -= 5;
 			}
-			ball.velocityX += ball.velocityX/10;
-			ball.velocityY += ball.velocityY/10;
+			if(ball.velocityX < 2) {
+				ball.velocityX += ball.velocityX/10;
+				ball.velocityY += ball.velocityY/10;	
+			}
 		}
-		else if(this.x + this.size > playerOne.x && this.y + this.size > playerOne.y && this.y < playerOne.y + playerOne.height) {
+		else if(this.x + this.size > playerOne.x && this.y + this.size > playerOne.y && 
+		this.y < playerOne.y + playerOne.height) {
 			this.changeDirection('x');
+			this.x -= this.velocity * 2;
 			if(playerOne.height > unitSize * 3) {
 				playerOne.height -= 5;
 				playerTwo.height -= 5;
 			}
-			ball.velocityX += ball.velocityX/10;
-			ball.velocityY += ball.velocityY/10;
+			if(ball.velocityX < 2) {
+				ball.velocityX += ball.velocityX/10;
+				ball.velocityY += ball.velocityY/10;	
+			}
 		}		
 	}
 }
