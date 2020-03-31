@@ -10,7 +10,7 @@ class Ball {
 
 		this.size = unitSize;
 
-		this.velocity = 1;
+		this.velocity = 5;
 
 		this.velocityX = this.velocity;
 		this.velocityY = -this.velocity;
